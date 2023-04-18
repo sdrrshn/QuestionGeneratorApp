@@ -1,6 +1,8 @@
 package com.sdrrshn.questiongeneratorapp.entity;
-import jakarta.persistence.*;
+
 import lombok.Data;
+
+import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -20,7 +22,9 @@ public class QuestionEntity {
     @JoinColumn(name = "user_entity_id")
     private UserEntity userEntity;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "questionEntity")
+
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL, targetEntity = AnswersEntity.class)
+    @JoinColumn(referencedColumnName = "id", name = "question_entity_id")
     private List<AnswersEntity> answersEntities = new java.util.ArrayList<>();
 
 

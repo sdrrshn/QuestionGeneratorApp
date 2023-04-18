@@ -1,7 +1,10 @@
 package com.sdrrshn.questiongeneratorapp.entity;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
+
+import javax.persistence.*;
+
 
 @Data
 @Entity
@@ -19,7 +22,7 @@ public class AnswersEntity {
 
     @Column(name = "is_true")
     private boolean isTrue;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "question_entity_id")
     private QuestionEntity questionEntity;
 
