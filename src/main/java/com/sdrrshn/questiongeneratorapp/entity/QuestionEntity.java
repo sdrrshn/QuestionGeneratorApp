@@ -28,6 +28,8 @@ public class QuestionEntity {
     private List<AnswersEntity> answersEntities = new java.util.ArrayList<>();
 
 
-
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private QuestionCategoryEntity categoryEntity;
 
 }

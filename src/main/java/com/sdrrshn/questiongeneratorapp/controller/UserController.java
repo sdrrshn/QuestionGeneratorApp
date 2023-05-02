@@ -6,6 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+
 @RestController
 @RequestMapping("${project.server.port}/user")
 public class UserController {
@@ -16,8 +18,13 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> add(@RequestBody UserAdd userAdd){
+    public ResponseEntity<?> add(@RequestBody UserAdd userAdd) {
         return ResponseEntity.ok(userService.add(userAdd));
+    }
+
+    @GetMapping("/approved/{userId}")
+    public ResponseEntity<?> userConfirm(@PathVariable(name = "userId") Long userId) {
+        return ResponseEntity.ok(userService.userConfirm(userId));
     }
 
 

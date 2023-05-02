@@ -1,6 +1,7 @@
 package com.sdrrshn.questiongeneratorapp.entity;
 
 
+import com.sdrrshn.questiongeneratorapp.data.enums.UserStatus;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -35,8 +36,11 @@ public class UserEntity {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "status")
+    private UserStatus status=UserStatus.CREATED;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "userEntity")
-    private List<QuestionEntity> questionEntities=new ArrayList<>();
+    private List<QuestionEntity> questionEntities = new ArrayList<>();
 
 
 }

@@ -22,7 +22,6 @@ public class QuestionService implements IQuestionService {
     @Override
     public QuestionAdd add(QuestionAdd questionAdd) {
         QuestionEntity questionEntity= questionMapper.questionAddToQuestionEntity(questionAdd);
-        System.out.println(questionEntity.getAnswersEntities().get(0).getAnswerText());
         return questionMapper.questionEntityToQuestionAdd(repository.save(questionEntity));
     }
 
