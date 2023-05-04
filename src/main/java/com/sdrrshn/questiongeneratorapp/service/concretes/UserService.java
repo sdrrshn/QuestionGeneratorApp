@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService implements IUserService {
 private final UserEntityRepository userRep;
+
 private final UserMapper userMapper;
 
     public UserService(UserEntityRepository userRep, UserMapper userMapper) {
         this.userRep = userRep;
+
         this.userMapper = userMapper;
     }
 
@@ -23,7 +25,6 @@ private final UserMapper userMapper;
     @Override
     public UserAdd add(UserAdd userAdd) {
         UserEntity userEntity=userMapper.userAddToUserEntity(userAdd);
-
         return userMapper.userEntityToUserAdd(userRep.save(userEntity));
     }
 
@@ -48,7 +49,6 @@ private final UserMapper userMapper;
 
     @Override
     public Result userConfirm(Long userId) {
-        System.out.println(userId);
         var result=userRep.findById(userId);
         if (result.isEmpty()){
             throw new NullPointerException("Böyle Bir Kullanıcı Yok");
