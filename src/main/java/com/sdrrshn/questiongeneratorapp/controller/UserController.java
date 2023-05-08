@@ -22,10 +22,7 @@ public class UserController {
         return ResponseEntity.ok(userService.add(userAdd));
     }
 
-    @GetMapping("/approved/{userId}")
-    public ResponseEntity<?> userConfirm(@PathVariable(name = "userId") Long userId) {
-        return ResponseEntity.ok(userService.userConfirm(userId));
-    }
+
 
 
 }

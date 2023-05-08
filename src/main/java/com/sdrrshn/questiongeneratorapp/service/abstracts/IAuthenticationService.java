@@ -11,4 +11,7 @@ public interface IAuthenticationService {
     Result forgetPassword(String email);
 
     Result resetPassword(ResetPasswordDto resetPasswordDto);
+    Result createUserAuth(Long userId);
+
+    Result userConfirmApprove(String authCode);
 }

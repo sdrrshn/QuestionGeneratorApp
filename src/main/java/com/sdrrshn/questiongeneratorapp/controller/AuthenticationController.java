@@ -5,10 +5,7 @@ import com.sdrrshn.questiongeneratorapp.data.dto.ResetPasswordDto;
 import com.sdrrshn.questiongeneratorapp.service.abstracts.IAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -34,5 +31,9 @@ public class AuthenticationController {
     @PostMapping("/resetPassword")
     public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordDto resetPasswordDto) {
         return ResponseEntity.ok(this.authenticationService.resetPassword(resetPasswordDto));
+    }
+    @GetMapping("/user/approved/{authCode}")
+    public ResponseEntity<?> userConfirm(@PathVariable(name = "authCode") String authCode) {
+        return ResponseEntity.ok(authenticationService.userConfirmApprove(authCode));
     }
 }
