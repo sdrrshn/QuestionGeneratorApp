@@ -7,6 +7,7 @@ import com.sdrrshn.questiongeneratorapp.data.enums.UserStatus;
 import com.sdrrshn.questiongeneratorapp.entity.UserEntity;
 import com.sdrrshn.questiongeneratorapp.mapper.UserMapper;
 import com.sdrrshn.questiongeneratorapp.repository.UserEntityRepository;
+import com.sdrrshn.questiongeneratorapp.security.encryption.abstracts.IPasswordEncryptor;
 import com.sdrrshn.questiongeneratorapp.service.abstracts.IAuthenticationService;
 import com.sdrrshn.questiongeneratorapp.service.abstracts.IUserService;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,13 @@ import org.springframework.stereotype.Service;
 public class UserService implements IUserService {
     private final UserEntityRepository userRep;
     private final UserMapper userMapper;
-
+    private final IPasswordEncryptor passwordEncryptor;
     private final IAuthenticationService authenticationService;
 
-    public UserService(UserEntityRepository userRep, UserMapper userMapper, IAuthenticationService authenticationService) {
+    public UserService(UserEntityRepository userRep, UserMapper userMapper, IPasswordEncryptor passwordEncryptor, IAuthenticationService authenticationService) {
         this.userRep = userRep;
         this.userMapper = userMapper;
+        this.passwordEncryptor = passwordEncryptor;
         this.authenticationService = authenticationService;
     }
 
@@ -29,6 +31,7 @@ public class UserService implements IUserService {
     public UserAdd add(UserAdd userAdd) {
         checkUserAdd(userAdd);
         UserEntity userEntity = userMapper.userAddToUserEntity(userAdd);
+        userEntity.setPassword(passwordEncryptor.encrypt(userAdd.getPassword()));
         var result = userRep.save(userEntity);
         setUserAuthentication(result);
         return userMapper.userEntityToUserAdd(result);
@@ -67,7 +70,6 @@ public class UserService implements IUserService {
         userRep.save(result.get());
         return new Result(true, "Başarılı Bir Şekilde Onaylandı");
     }
-
 
 
     private void checkUserAdd(UserAdd user) {

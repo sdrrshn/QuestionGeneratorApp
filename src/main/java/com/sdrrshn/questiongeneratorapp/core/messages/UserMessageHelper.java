@@ -1,4 +1,4 @@
-package com.sdrrshn.questiongeneratorapp.core.utils.messages;
+package com.sdrrshn.questiongeneratorapp.core.messages;
 
 import lombok.Data;
 
